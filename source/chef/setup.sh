@@ -33,7 +33,7 @@ shift `expr $OPTIND - 1`
 
 
 mkdir -p /opt/opscode || error_exit "Cannot create /opt/opscode!"
-LD_LIBRARY_PATH=$INSTALLER_DIR/embedded/lib $INSTALLER_DIR/embedded/bin/rsync -a --delete --exclude $INSTALLER_DIR/setup.sh $INSTALLER_DIR/ /opt/opscode || error_exit "Cannot rsync release to /opt/opscode"
+LD_LIBRARY_PATH=$INSTALLER_DIR/embedded/lib $INSTALLER_DIR/embedded/bin/rsync -a --delete --exclude /setup.sh $INSTALLER_DIR/ /opt/opscode || error_exit "Cannot rsync release to /opt/opscode"
 
 if [ "" != "$chef_url" ]; then
   mkdir -p /etc/chef || error_exit "Cannot create /etc/chef!"
