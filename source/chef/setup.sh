@@ -5,6 +5,7 @@
 
 PROGNAME=$(basename $0)
 INSTALLER_DIR=$(dirname $0)
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
 function error_exit
 {
