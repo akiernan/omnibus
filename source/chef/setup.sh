@@ -75,6 +75,7 @@ elif [ -f "/etc/redhat-release" ]; then
   chmod +x ${distro}/redhat/etc/init.d/chef-client
   ln -sf ${distro}/redhat/etc/init.d/chef-client /etc/rc.d/init.d/chef-client
   ln -sf ${distro}/redhat/etc/logrotate.d/chef-client /etc/logrotate.d/client
+  chkconfig --add chef-client
   service chef-client condrestart
 fi
 
