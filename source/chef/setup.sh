@@ -71,7 +71,7 @@ if [ -f "/etc/debian_version" ]; then
   chmod +x ${distro}/debian/etc/init.d/chef-client
   ln -sf ${distro}/debian/etc/init.d/chef-client /etc/init.d/chef-client
 elif [ -f "/etc/redhat-release" ]; then
-  [ -r /etc/sysconfig/chef-client ] || cp  ${distro}/redhat/etc/sysconf/chef-client /etc/sysconfig
+  [ -r /etc/sysconfig/chef-client ] || cp  ${distro}/redhat/etc/sysconfig/chef-client /etc/sysconfig
   chmod +x ${distro}/redhat/etc/init.d/chef-client
   ln -sf ${distro}/redhat/etc/init.d/chef-client /etc/rc.d/init.d/chef-client
   ln -sf ${distro}/redhat/etc/logrotate.d/chef-client /etc/logrotate.d/client
