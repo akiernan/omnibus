@@ -68,12 +68,12 @@ chef_version=`/opt/opscode/bin/knife -v | awk '{print $2}'`
 distro="${gemdir}/gems/chef-${chef_version}/distro"
 if [ -f "/etc/debian_version" ]; then
   [ -r /etc/default/chef-client ] || cp  ${distro}/debian/etc/default/chef-client /etc/default
-  chmod +x ${distro}/debian/etc/init.d/chef-client
-  ln -sf ${distro}/debian/etc/init.d/chef-client /etc/init.d/chef-client
+  cp  ${distro}/debian/etc/init.d/chef-client /etc/init.d/chef-client
+  chmod +x /etc/init.d/chef-client
 elif [ -f "/etc/redhat-release" ]; then
   [ -r /etc/sysconfig/chef-client ] || cp  ${distro}/redhat/etc/sysconfig/chef-client /etc/sysconfig
-  chmod +x ${distro}/redhat/etc/init.d/chef-client
-  ln -sf ${distro}/redhat/etc/init.d/chef-client /etc/rc.d/init.d/chef-client
+  cp ${distro}/redhat/etc/init.d/chef-client /etc/rc.d/init.d/chef-client
+  chmod +x /etc/init.d/chef-client
   ln -sf ${distro}/redhat/etc/logrotate.d/chef-client /etc/logrotate.d/client
   chkconfig --add chef-client
   service chef-client condrestart
