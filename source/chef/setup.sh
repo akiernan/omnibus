@@ -63,22 +63,6 @@ ln -sf /opt/opscode/bin/knife /usr/bin || error_exit "Cannot link knife to /usr/
 ln -sf /opt/opscode/bin/shef /usr/bin || error_exit "Cannot link shef to /usr/bin"
 ln -sf /opt/opscode/bin/ohai /usr/bin || error_exit "Cannot link ohai to /usr/bin"
 
-gemdir=`/opt/opscode/embedded/bin/gem environment gemdir`
-chef_version=`/opt/opscode/bin/knife -v | awk '{print $2}'`
-distro="${gemdir}/gems/chef-${chef_version}/distro"
-if [ -f "/etc/debian_version" ]; then
-  [ -r /etc/default/chef-client ] || cp  ${distro}/debian/etc/default/chef-client /etc/default
-  cp  ${distro}/debian/etc/init.d/chef-client /etc/init.d/chef-client
-  chmod +x /etc/init.d/chef-client
-elif [ -f "/etc/redhat-release" ]; then
-  [ -r /etc/sysconfig/chef-client ] || cp  ${distro}/redhat/etc/sysconfig/chef-client /etc/sysconfig
-  cp ${distro}/redhat/etc/init.d/chef-client /etc/rc.d/init.d/chef-client
-  chmod +x /etc/init.d/chef-client
-  ln -sf ${distro}/redhat/etc/logrotate.d/chef-client /etc/logrotate.d/client
-  chkconfig --add chef-client
-  service chef-client condrestart
-fi
-
 echo "Thank you for installing Chef!"
 
 exit 0
