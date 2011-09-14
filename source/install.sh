@@ -63,7 +63,7 @@ then
   platform_version=$(echo -e `cat /etc/debian_version`)
 elif [ -f "/etc/redhat-release" ];
 then
-  platform=$(echo -e `cat /etc/redhat-release` | perl -pi -e 's/^(.+) release.+/$1/' | tr '[A-Z]' '[a-z]')
+  platform=$(echo -e `cat /etc/redhat-release` | sed -e 's/^\(.*\) release .*/\1/' | tr '[A-Z]' '[a-z]')
   if [ "$platform" = "redhat enterprise linux server" ];
   then
     platform="el"
@@ -75,11 +75,11 @@ then
     platform="el"
   fi
 
-  platform_version=$(echo -e `cat /etc/redhat-release` | perl -pi -e 's/^.+ release ([\d\.]+).*/$1/' | tr '[A-Z]' '[a-z]')
+  platform_version=$(echo -e `cat /etc/redhat-release` | sed -e 's/^.* release \([.0-9]*\).*$/\1/' | tr '[A-Z]' '[a-z]')
 
   if [ "$platform" = "el" ];
   then
-    major_version=$(echo $platform_version | perl -pi -e 's/^(\d).+$/$1/g')
+    major_version=$(echo $platform_version | sed -e 's/^\([0-9]*\)\..*$/\1/')
     case $platform in
       "5") platform_version="5.6" ;;
       "6") platform_version="6.0" ;;
@@ -87,8 +87,8 @@ then
   fi
 elif [ -f "/etc/system-release" ];
 then
-  platform=$(echo -e `cat /etc/system-release` | perl -pi -e 's/^(.+) release.+/$1/' | tr '[A-Z]' '[a-z]')
-  platform_version=$(echo -e `cat /etc/system-release` | perl -pi -e 's/^.+ release ([\d\.]+).*/$1/' | tr '[A-Z]' '[a-z]')
+  platform=$(echo -e `cat /etc/redhat-release` | sed -e 's/^\(.*\) release .*/\1/' | tr '[A-Z]' '[a-z]')
+  platform_version=$(echo -e `cat /etc/redhat-release` | sed -e 's/^.* release \([.0-9]*\).*$/\1/' | tr '[A-Z]' '[a-z]')
 fi
 
 if [ -z "$version" ];
