@@ -87,8 +87,8 @@ then
   fi
 elif [ -f "/etc/system-release" ];
 then
-  platform=$(echo -e `cat /etc/redhat-release` | sed -e 's/^\(.*\) release .*/\1/' | tr '[A-Z]' '[a-z]')
-  platform_version=$(echo -e `cat /etc/redhat-release` | sed -e 's/^.* release \([.0-9]*\).*$/\1/' | tr '[A-Z]' '[a-z]')
+  platform=$(echo -e `cat /etc/system-release` | sed -e 's/^\(.*\) release .*/\1/' | tr '[A-Z]' '[a-z]')
+  platform_version=$(echo -e `cat /etc/system-release` | sed -e 's/^.* release \([.0-9]*\).*$/\1/' | tr '[A-Z]' '[a-z]')
 fi
 
 if [ -z "$version" ];
