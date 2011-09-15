@@ -17,10 +17,14 @@
 ;; limitations under the License.
 ;;
 
-(project "chef-server-full" "0.10.0" "1"
-         :build-order [ "prep" "autoconf" "zlib" "libiconv" "db" "gdbm" "ncurses" "openssl"
-                        "libxml2" "libxslt" "ruby" "rsync" "chef" "chef-server"
-                        "erlang" "icu" "spidermonkey" "curl" "couchdb"
-                        "rabbitmq-server" ])
-
-
+(let [ env {"PATH" (apply str (interpose ":" [(System/getenv "PATH") "/opt/opscode/embedded/bin"]))} ]
+  (software "rabbitmq-server" :source "rabbitmq-server-2.5.1"
+            :steps [
+                    {:env env
+                     :command "make"}
+                    {:env env
+                     :command "make"
+                     :args ["TARGET_DIR=/opt/opscode/embedded/share/rabbitmq-server"
+                            "SBIN_DIR=/opt/opscode/embedded/bin"
+                            "MAN_DIR=/opt/opscode/embedded/share/man"
+                            "install"]} ]))
