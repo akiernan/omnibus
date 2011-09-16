@@ -22,7 +22,8 @@
           :steps [
                   {:env { "CFLAGS=-L/opt/opscode/embedded/lib -I/opt/opscode/embedded/include" }
                    :command "./configure" :args ["--prefix=/opt/opscode/embedded" ]}
-                  {:command "make"}
+                  {:env {"LD_RUN_PATH" "/opt/opscode/embedded/lib"}
+                   :command "make"}
                   {:command "make" :args ["install"]}
                   {:command "ln" :args ["-sfn" "/opt/opscode/embedded/bin/icu-config" "/usr/local/bin/icu-config"]}
                   ])
