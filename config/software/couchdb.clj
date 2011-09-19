@@ -42,4 +42,7 @@
                             "/opt/opscode"]}
                     {:command "rm"
                      :args ["-fR"
-                            "/opt/opscode/root/opt/opscode"]} ]))
+                            "/opt/opscode/root/opt/opscode"]}
+                    {:command "mv"
+                     :args ["/opt/opscode/root"
+                            "/opt/opscode/embedded/share/couchdb"]} ]))
